@@ -2,6 +2,10 @@
 
 import Layout from '@/layout'
 
+import keyboardComp from '@/views/charts/keyboard'
+import lineComp from '@/views/charts/line'
+import mixChartComp from '@/views/charts/mix-chart'
+
 const chartsRouter = {
   path: '/charts',
   component: Layout,
@@ -14,19 +18,19 @@ const chartsRouter = {
   children: [
     {
       path: 'keyboard',
-      component: () => import('@/views/charts/keyboard'),
+      component: () => keyboardComp,
       name: 'KeyboardChart',
       meta: { title: 'Keyboard Chart', noCache: true }
     },
     {
       path: 'line',
-      component: () => import('@/views/charts/line'),
+      component: () => lineComp,
       name: 'LineChart',
       meta: { title: 'Line Chart', noCache: true }
     },
     {
       path: 'mix-chart',
-      component: () => import('@/views/charts/mix-chart'),
+      component: () => mixChartComp,
       name: 'MixChart',
       meta: { title: 'Mix Chart', noCache: true }
     }

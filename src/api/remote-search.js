@@ -1,17 +1,5 @@
-import request from '@/utils/request'
+import { GET } from '@/utils/request'
 
-export function searchUser(name) {
-  return request({
-    url: '/search/user',
-    method: 'get',
-    params: { name }
-  })
-}
+export const searchUser = name => GET('/search/user', { name })
 
-export function transactionList(query) {
-  return request({
-    url: '/transaction/list',
-    method: 'get',
-    params: query
-  })
-}
+export const transactionList = query => GET('/transaction/list', query)

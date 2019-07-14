@@ -1,41 +1,11 @@
-import request from '@/utils/request'
+import { GET, POST } from '@/utils/request'
 
-export function fetchList(query) {
-  return request({
-    url: '/article/list',
-    method: 'get',
-    params: query
-  })
-}
+export const fetchList = query => GET('/article/list', query)
 
-export function fetchArticle(id) {
-  return request({
-    url: '/article/detail',
-    method: 'get',
-    params: { id }
-  })
-}
+export const fetchArticle = id => GET('/article/detail', { id })
 
-export function fetchPv(pv) {
-  return request({
-    url: '/article/pv',
-    method: 'get',
-    params: { pv }
-  })
-}
+export const fetchPv = pv => GET('/article/pv', { pv })
 
-export function createArticle(data) {
-  return request({
-    url: '/article/create',
-    method: 'post',
-    data
-  })
-}
+export const createArticle = data => POST('/article/create', data)
 
-export function updateArticle(data) {
-  return request({
-    url: '/article/update',
-    method: 'post',
-    data
-  })
-}
+export const updateArticle = data => POST('/article/update', data)

@@ -1,38 +1,11 @@
-import request from '@/utils/request'
+import { GET, POST, PUT, DELETE } from '@/utils/request'
 
-export function getRoutes() {
-  return request({
-    url: '/routes',
-    method: 'get'
-  })
-}
+export const getRoutes = () => GET('/routes')
 
-export function getRoles() {
-  return request({
-    url: '/roles',
-    method: 'get'
-  })
-}
+export const getRoles = () => GET('/roles')
 
-export function addRole(data) {
-  return request({
-    url: '/role',
-    method: 'post',
-    data
-  })
-}
+export const addRole = data => POST('/role', data)
 
-export function updateRole(id, data) {
-  return request({
-    url: `/role/${id}`,
-    method: 'put',
-    data
-  })
-}
+export const updateRole = (id, data) => PUT(`/role/${id}`, data)
 
-export function deleteRole(id) {
-  return request({
-    url: `/role/${id}`,
-    method: 'delete'
-  })
-}
+export const deleteRole = id => DELETE(`/role/${id}`)

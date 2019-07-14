@@ -1,24 +1,7 @@
-import request from '@/utils/request'
+import { GET, POST } from '@/utils/request'
 
-export function login(data) {
-  return request({
-    url: '/user/login',
-    method: 'post',
-    data
-  })
-}
+export const login = data => POST('/user/login', data)
 
-export function getInfo(token) {
-  return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  })
-}
+export const getInfo = token => GET('/user/info', { token })
 
-export function logout() {
-  return request({
-    url: '/user/logout',
-    method: 'post'
-  })
-}
+export const logout = () => POST('/user/logout')
