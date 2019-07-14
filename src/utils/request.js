@@ -2,6 +2,7 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import eb from '@/utils/event-bus'
 
 // create an axios instance
 const service = axios.create({
@@ -14,6 +15,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
+    eb.eventBus.$emit('loadingon')
 
     if (store.getters.token) {
       // let each request carry token
@@ -25,6 +27,7 @@ service.interceptors.request.use(
   },
   error => {
     // do something with request error
+    eb.eventBus.$emit('loadingoff')
     console.log(error) // for debug
     return Promise.reject(error)
   }
@@ -43,6 +46,7 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    eb.eventBus.$emit('loadingoff')
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.
@@ -76,6 +80,7 @@ service.interceptors.response.use(
     }
   },
   error => {
+    eb.eventBus.$emit('loadingoff')
     console.log('err' + error) // for debug
     Message({
       message: error.message,
