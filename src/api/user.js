@@ -1,7 +1,7 @@
 import { GET, POST } from '@/utils/request'
 
-export const login = data => POST('/user/login', data)
+export const login = data => POST('/v1/admin/login', data)
 
-export const getInfo = token => GET('/user/info', { token })
+export const getInfo = () => GET('/v1/admin/info')
 
-export const logout = () => POST('/user/logout')
+export const logout = () => POST('/v1/admin/logout')
