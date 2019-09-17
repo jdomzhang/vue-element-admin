@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { loginAdmin, logoutAdmin, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -30,26 +30,35 @@ const mutations = {
 
 const actions = {
   // user login
-  login({ commit }, loginInfo) {
+  async login({ commit }, loginInfo) {
     const { mobile, password } = loginInfo
-    return new Promise((resolve, reject) => {
-      login({ mobile: mobile.trim(), password: password })
-        .then(response => {
-          const { data } = response
-          const roles = data.roles.split('|')
-          commit('SET_ROLES', roles)
-          // commit('SET_TOKEN', data.token)
-          // setToken(data.token)
-          resolve()
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
+    const response = await loginAdmin({ mobile: mobile.trim(), password: password })
+    const data = response || {}
+    let roles = data.roles || 'admin'
+    roles = roles.split('|')
+    console.log('roles', roles)
+    commit('SET_ROLES', roles)
+
+    // return new Promise((resolve, reject) => {
+    //   loginAdmin({ mobile: mobile.trim(), password: password })
+    //     .then(response => {
+    //       const { data } = response
+    //       const roles = data.roles.split('|')
+    //       console.log('roles', roles)
+    //       commit('SET_ROLES', roles)
+    //       commit('SET_TOKEN', data.token)
+    //       setToken(data.token)
+    //       resolve()
+    //     })
+    //     .catch(error => {
+    //       reject(error)
+    //     })
+    // })
   },
 
   refreshToken({ commit }, token) {
     commit('SET_TOKEN', token)
+    setToken(token)
   },
 
   // get user info
@@ -85,7 +94,7 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token)
+      logoutAdmin(state.token)
         .then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
