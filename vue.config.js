@@ -1,4 +1,6 @@
 'use strict'
+var ip = require('internal-ip').v4.sync()
+
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
 
@@ -15,7 +17,7 @@ const name = defaultSettings.title || 'vue Element Admin' // page title
 // port = 9527 npm run dev OR npm run dev --port = 9527
 const port = process.env.port || process.env.npm_config_port || 9527 // dev port
 
-const apiPort = process.env.API_PORT || port
+const apiPort = process.env.VUE_APP_BASE_API_PORT
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -42,7 +44,7 @@ module.exports = {
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://127.0.0.1:${apiPort}/api`,
+        target: `http://${ip}:${apiPort}/api`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
